@@ -1,0 +1,152 @@
+service: offchain-agents
+
+configValidationMode: "error"
+deprecationNotificationMode: "error"
+frameworkVersion: "3.22.0"
+useDotenv: true
+
+plugins:
+  - serverless-esbuild
+  - serverless-iam-roles-per-function
+
+package:
+  individually: true
+
+custom: ${file(./config.yml)}
+
+provider:
+  name: aws
+  deploymentMethod: direct
+  disableRollback: false
+  deploymentBucket:
+    name: ${self:custom.${opt:stage}.deploymentBucketName}
+  runtime: nodejs16.x
+  region: us-east-1
+  timeout: 60
+  tags: ${self:custom.tags}
+  stackTags: ${self:custom.tags}
+  logRetentionInDays: 7 # this should be defined in the AWS Organization, manually adding it for now
+  environment:
+    CHAIN_ID: ${self:custom.chainId}
+    RPC_PROTOCOL: ${self:custom.rpcProtocol}
+    RPC_HOSTNAME: ${self:custom.rpcHostname}
+    RPC_PORT: ${self:custom.rpcPort}
+    API_PROTOCOL: ${self:custom.apiProtocol}
+    API_HOSTNAME: ${self:custom.apiHostname}
+    API_PORT: ${self:custom.apiPort}
+    SLACK_OFFCHAIN_CHANNEL_WEBHOOK: ${self:custom.slackOffchainAgentsWebhook}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+    FEE: ${self:custom.fee}
+    GAS: ${self:custom.gas}
+
+functions:
+  adjust-liqp-tvl:
+    handler: adjust-liqp-tvl.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmAdminClpDexMnemonicPath}
+    environment:
+      ADMIN_CLP_DEX_MNEMONIC_PATH: ${self:custom.ssmAdminClpDexMnemonicPath}
+      MAX_ROWAN_LIQUIDITY_THRESHOLD_PERCENTAGE: ${self:custom.adjust-liqp-tvl.maxRowanLiquidityThresholdPercentage}
+      EPOCH_LENGTH: ${self:custom.adjust-liqp-tvl.epochLength}
+      IS_ACTIVE: ${self:custom.adjust-liqp-tvl.isActive}
+    events:
+      - schedule: ${self:custom.adjust-liqp-tvl.schedule}
+  adjust-lpd-price-loss:
+    handler: adjust-lpd-price-loss.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmAdminClpDexMnemonicPath}
+    environment:
+      ADMIN_CLP_DEX_MNEMONIC_PATH: ${self:custom.ssmAdminClpDexMnemonicPath}
+      IS_ACTIVE: ${self:custom.adjust-lpd-price-loss.isActive}
+      DRY_RUN: ${self:custom.adjust-lpd-price-loss.dryRun}
+      SYMBOL: ${self:custom.adjust-lpd-price-loss.symbol}
+      BLOCK_WINDOW: ${self:custom.adjust-lpd-price-loss.blockWindow}
+      MOD: ${self:custom.adjust-lpd-price-loss.mod}
+      DAILY_RATE: ${self:custom.adjust-lpd-price-loss.dailyRate}
+      EPOCH_LENGTH: ${self:custom.adjust-lpd-price-loss.epochLength}
+      MAX_RATE: ${self:custom.adjust-lpd-price-loss.maxRate}
+      ENABLE_MAX_RATE_MOD: ${self:custom.adjust-lpd-price-loss.enableMaxRateMod}
+      INITIAL_BLOCK: ${self:custom.adjust-lpd-price-loss.initialBlock}
+      BLOCK_WINDOW_OFFSET: ${self:custom.adjust-lpd-price-loss.blockWindowOffset}
+    events:
+      - schedule: ${self:custom.adjust-lpd-price-loss.schedule}
+  # margin-market-maker:
+  #   handler: margin-market-maker.handler
+  #   iamRoleStatements:
+  #     - Effect: "Allow"
+  #       Action:
+  #         - ssm:GetParameter
+  #       Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmUserMarginMnemonicPath}
+  #   environment:
+  #     USER_MARGIN_MNEMONIC_PATH: ${self:custom.ssmUserMarginMnemonicPath}
+  #     COLLATERAL_AMOUNT: ${self:custom.margin-market-maker.collateralAmount}
+  #     COLLATERAL_ASSET: ${self:custom.margin-market-maker.collateralAsset}
+  #     BORROW_ASSET: ${self:custom.margin-market-maker.borrowAsset}
+  #     LEVERAGE: ${self:custom.margin-market-maker.leverage}
+  #     POSITION: ${self:custom.margin-market-maker.position}
+  #     DURATION: ${self:custom.margin-market-maker.duration}
+  #     MAX_POSITIONS: ${self:custom.margin-market-maker.maxPositions}
+  #     MIN_POOL_HEALTH: ${self:custom.margin-market-maker.minPoolHealth}
+  #   events:
+  #     - schedule: ${self:custom.margin-market-maker.schedule}
+  margin-auto-close-positions:
+    handler: margin-auto-close-positions.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmAdminMarginMnemonicPath}
+    environment:
+      ADMIN_MARGIN_MNEMONIC_PATH: ${self:custom.ssmAdminMarginMnemonicPath}
+      PROFIT_PERCENTAGE_THRESHOLD: ${self:custom.margin-auto-close-positions.profitPercentageThreshold}
+    events:
+      - schedule: ${self:custom.margin-auto-close-positions.schedule}
+  adjust-swap-fee-rate:
+    handler: adjust-swap-fee-rate.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmAdminClpDexMnemonicPath}
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmDbPasswordPath}
+    environment:
+      ADMIN_CLP_DEX_MNEMONIC_PATH: ${self:custom.ssmAdminClpDexMnemonicPath}
+      DB_HOST: ${self:custom.dbHost}
+      DB_PORT: ${self:custom.dbPort}
+      DB_USER: ${self:custom.dbUser}
+      DB_PASSWORD_PATH: ${self:custom.ssmDbPasswordPath}
+      DB_NAME: ${self:custom.dbName}
+      DB_QUERY_TIMEOUT: ${self:custom.dbQueryTimeout}
+      MAX_SWAP_FEE: ${self:custom.reset-swap-fee-rate.maxSwapFee}
+      INTRA_EPOCH_LENGTH: ${self:custom.adjust-swap-fee-rate.intraEpochLength}
+      SF_INCREMENT: ${self:custom.adjust-swap-fee-rate.sfIncrement}
+      POOL_SYMBOL: ${self:custom.adjust-swap-fee-rate.poolSymbol}
+      FEE: ${self:custom.adjust-swap-fee-rate.fee}
+    events:
+      - schedule: ${self:custom.adjust-swap-fee-rate.schedule}
+  reset-swap-fee-rate:
+    handler: reset-swap-fee-rate.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmAdminClpDexMnemonicPath}
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmDbPasswordPath}
+    environment:
+      ADMIN_CLP_DEX_MNEMONIC_PATH: ${self:custom.ssmAdminClpDexMnemonicPath}
+      MAX_SWAP_FEE: ${self:custom.reset-swap-fee-rate.maxSwapFee}
+      FEE: ${self:custom.reset-swap-fee-rate.fee}
+    events:
+      - schedule: ${self:custom.reset-swap-fee-rate.schedule}

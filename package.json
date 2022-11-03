@@ -1,0 +1,36 @@
+{
+  "name": "agents",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Sifchain/agents.git",
+  "author": "Caner Candan",
+  "license": "MIT",
+  "scripts": {
+    "sls:deploy:prod": "sls deploy --verbose --stage prod",
+    "sls:deploy:function:prod": "sls deploy function --verbose --stage prod",
+    "sls:invoke:local": "sls invoke local --verbose --stage prod -f",
+    "sls:destroy:prod": "sls remove --verbose --stage prod",
+    "test:watch": "jest --watchAll",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ssm": "3.185.0",
+    "@cosmjs/proto-signing": "^0.29.0",
+    "@cosmjs/stargate": "^0.29.0",
+    "@cosmjs/tendermint-rpc": "^0.29.0",
+    "@sifchain/stargate": "1.1.0",
+    "node-fetch": "^3.2.10",
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "deepmerge": "4.2.2",
+    "dotenv": "16.0.3",
+    "dotenv-safer": "1.0.0",
+    "esbuild": "0.15.10",
+    "inquirer": "8.2.4",
+    "jest": "29.1.2",
+    "serverless": "3.22.0",
+    "serverless-esbuild": "1.32.8",
+    "serverless-iam-roles-per-function": "3.2.0"
+  }
+}

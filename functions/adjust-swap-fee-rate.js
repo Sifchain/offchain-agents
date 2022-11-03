@@ -1,9 +1,9 @@
-const { queryDB } = require("./helpers/queryDB");
-const { getSigningClient } = require("./helpers/getSigningClient");
-const { adjustSwapFeeRate } = require("./domains/adjust-swap-fee-rate");
-const { getSwapFeeParams } = require("./helpers/getSwapFeeParams");
-const { updateSwapFeeParams } = require("./helpers/updateSwapFeeParams");
-const { getPool } = require("./helpers/getPool");
+const { queryDB } = require("../helpers/queryDB");
+const { getSigningClient } = require("../helpers/getSigningClient");
+const { adjustSwapFeeRate } = require("../domains/adjust-swap-fee-rate");
+const { getSwapFeeParams } = require("../helpers/getSwapFeeParams");
+const { updateSwapFeeParams } = require("../helpers/updateSwapFeeParams");
+const { getPool } = require("../helpers/getPool");
 
 const {
   ADMIN_CLP_DEX_MNEMONIC_PATH,

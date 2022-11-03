@@ -41,7 +41,7 @@ provider:
 
 functions:
   adjust-liqp-tvl:
-    handler: adjust-liqp-tvl.handler
+    handler: ./functions/adjust-liqp-tvl.handler
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -55,7 +55,7 @@ functions:
     events:
       - schedule: ${self:custom.adjust-liqp-tvl.schedule}
   adjust-lpd-price-loss:
-    handler: adjust-lpd-price-loss.handler
+    handler: ./functions/adjust-lpd-price-loss.handler
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -77,7 +77,7 @@ functions:
     events:
       - schedule: ${self:custom.adjust-lpd-price-loss.schedule}
   # margin-market-maker:
-  #   handler: margin-market-maker.handler
+  #   handler: ./functions/margin-market-maker.handler
   #   iamRoleStatements:
   #     - Effect: "Allow"
   #       Action:
@@ -96,7 +96,7 @@ functions:
   #   events:
   #     - schedule: ${self:custom.margin-market-maker.schedule}
   margin-auto-close-positions:
-    handler: margin-auto-close-positions.handler
+    handler: ./functions/margin-auto-close-positions.handler
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -108,7 +108,7 @@ functions:
     events:
       - schedule: ${self:custom.margin-auto-close-positions.schedule}
   adjust-swap-fee-rate:
-    handler: adjust-swap-fee-rate.handler
+    handler: ./functions/adjust-swap-fee-rate.handler
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -134,7 +134,7 @@ functions:
     events:
       - schedule: ${self:custom.adjust-swap-fee-rate.schedule}
   reset-swap-fee-rate:
-    handler: reset-swap-fee-rate.handler
+    handler: ./functions/reset-swap-fee-rate.handler
     iamRoleStatements:
       - Effect: "Allow"
         Action:

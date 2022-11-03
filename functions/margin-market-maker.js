@@ -1,16 +1,16 @@
 const fetch = require("node-fetch").default;
 
-const { getSigningClient } = require("./helpers/getSigningClient");
+const { getSigningClient } = require("../helpers/getSigningClient");
 const {
   getMtpsByAddressAndHeight,
-} = require("./helpers/getMtpsByAddressAndHeight");
-const { getPool } = require("./helpers/getPool");
-const { getEvent } = require("./helpers/getEvent");
-const { openMtp } = require("./helpers/openMtp");
-const { closeMtps } = require("./helpers/closeMtps");
+} = require("../helpers/getMtpsByAddressAndHeight");
+const { getPool } = require("../helpers/getPool");
+const { getEvent } = require("../helpers/getEvent");
+const { openMtp } = require("../helpers/openMtp");
+const { closeMtps } = require("../helpers/closeMtps");
 const { marginMarketMaker } = require("./domains/margin-market-maker");
-const { getUserBalances } = require("./helpers/getUserBalances");
-const { createSlackMessage } = require("./helpers/createSlackMessage");
+const { getUserBalances } = require("../helpers/getUserBalances");
+const { createSlackMessage } = require("../helpers/createSlackMessage");
 
 const {
   SLACK_OFFCHAIN_CHANNEL_WEBHOOK,

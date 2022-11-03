@@ -1,9 +1,9 @@
 const fetch = require("node-fetch").default;
 
-const { getSigningClient } = require("./helpers/getSigningClient");
+const { getSigningClient } = require("../helpers/getSigningClient");
 const {
   updateLiquidityProtectionParams,
-} = require("./helpers/updateLiquidityProtectionParams");
+} = require("../helpers/updateLiquidityProtectionParams");
 
 const {
   SLACK_OFFCHAIN_CHANNEL_WEBHOOK,
@@ -13,7 +13,7 @@ const {
   IS_ACTIVE,
 } = process.env;
 
-const { createSlackMessage } = require("./helpers/createSlackMessage");
+const { createSlackMessage } = require("../helpers/createSlackMessage");
 
 module.exports.handler = async (event, context) => {
   const maxRowanLiquidityThresholdAsset = "rowan";

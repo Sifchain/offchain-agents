@@ -1,7 +1,7 @@
-const { getSigningClient } = require("./helpers/getSigningClient");
-const { resetSwapFeeRate } = require("./domains/reset-swap-fee-rate");
-const { getSwapFeeParams } = require("./helpers/getSwapFeeParams");
-const { updateSwapFeeParams } = require("./helpers/updateSwapFeeParams");
+const { getSigningClient } = require("../helpers/getSigningClient");
+const { resetSwapFeeRate } = require("../domains/reset-swap-fee-rate");
+const { getSwapFeeParams } = require("../helpers/getSwapFeeParams");
+const { updateSwapFeeParams } = require("../helpers/updateSwapFeeParams");
 
 const { ADMIN_CLP_DEX_MNEMONIC_PATH, MAX_SWAP_FEE } = process.env;
 

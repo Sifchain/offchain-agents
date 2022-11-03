@@ -1,13 +1,13 @@
 const fetch = require("node-fetch").default;
 
-const { getSigningClient } = require("./helpers/getSigningClient");
-const { getPriceWindow } = require("./helpers/getPriceWindow");
-const { updateLPDParams } = require("./helpers/updateLPDParams");
-const { calcPriceIncrease } = require("./helpers/calcPriceIncrease");
+const { getSigningClient } = require("../helpers/getSigningClient");
+const { getPriceWindow } = require("../helpers/getPriceWindow");
+const { updateLPDParams } = require("../helpers/updateLPDParams");
+const { calcPriceIncrease } = require("../helpers/calcPriceIncrease");
 
-const { adjustLpdPriceLoss } = require("./domains/adjust-lpd-price-loss");
+const { adjustLpdPriceLoss } = require("../domains/adjust-lpd-price-loss");
 
-const { createSlackMessage } = require("./helpers/createSlackMessage");
+const { createSlackMessage } = require("../helpers/createSlackMessage");
 
 const {
   SLACK_OFFCHAIN_CHANNEL_WEBHOOK,

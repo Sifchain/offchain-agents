@@ -22,12 +22,6 @@ cd offchain-agents
 yarn install
 ```
 
-Install the repository dependencies with the following command line:
-
-```bash
-yarn
-```
-
 # Available Agents
 
 ## Adjust Liquidity Protection to TVL

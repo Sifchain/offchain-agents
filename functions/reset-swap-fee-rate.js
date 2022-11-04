@@ -1,3 +1,5 @@
+const fetch = require("node-fetch").default;
+
 const { getSigningClient } = require("../helpers/getSigningClient");
 const { resetSwapFeeRate } = require("../domains/reset-swap-fee-rate");
 const { getSwapFeeParams } = require("../helpers/getSwapFeeParams");

@@ -1,3 +1,5 @@
+const fetch = require("node-fetch").default;
+
 const { queryDB } = require("../helpers/queryDB");
 const { getSigningClient } = require("../helpers/getSigningClient");
 const { adjustSwapFeeRate } = require("../domains/adjust-swap-fee-rate");

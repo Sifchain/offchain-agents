@@ -21,11 +21,11 @@ async function handler(event, context) {
   const summary = await resetSwapFeeRate({ ports });
   console.table(summary);
 
-  //   await fetch(SLACK_OFFCHAIN_CHANNEL_WEBHOOK, {
-  //     method: "post",
-  //     body: JSON.stringify(
-  //       createSlackMessage({ summary, title: context.functionName })
-  //     ),
-  //     headers: { "Content-Type": "application/json" },
-  //   });
+  await fetch(SLACK_OFFCHAIN_CHANNEL_WEBHOOK, {
+    method: "post",
+    body: JSON.stringify(
+      createSlackMessage({ summary, title: context.functionName })
+    ),
+    headers: { "Content-Type": "application/json" },
+  });
 }

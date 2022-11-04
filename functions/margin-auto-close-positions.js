@@ -9,7 +9,7 @@ const {
 } = require("../helpers/calcMarginPositionProfitPercentage");
 const {
   marginAutoClosePositions,
-} = require("./domains/margin-auto-close-positions");
+} = require("../domains/margin-auto-close-positions");
 const { createSlackMessage } = require("../helpers/createSlackMessage");
 
 const {

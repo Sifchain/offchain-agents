@@ -8,7 +8,7 @@ const { getPool } = require("../helpers/getPool");
 const { getEvent } = require("../helpers/getEvent");
 const { openMtp } = require("../helpers/openMtp");
 const { closeMtps } = require("../helpers/closeMtps");
-const { marginMarketMaker } = require("./domains/margin-market-maker");
+const { marginMarketMaker } = require("../domains/margin-market-maker");
 const { getUserBalances } = require("../helpers/getUserBalances");
 const { createSlackMessage } = require("../helpers/createSlackMessage");
 

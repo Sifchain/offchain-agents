@@ -8,6 +8,7 @@ const { updateSwapFeeParams } = require("../helpers/updateSwapFeeParams");
 const { getPool } = require("../helpers/getPool");
 
 const {
+  SLACK_OFFCHAIN_CHANNEL_WEBHOOK,
   ADMIN_CLP_DEX_MNEMONIC_PATH,
   MAX_SWAP_FEE,
   INTRA_EPOCH_LENGTH,

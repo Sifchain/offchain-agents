@@ -14,7 +14,8 @@ const {
   MAX_SWAP_FEE,
   INTRA_EPOCH_LENGTH,
   SF_INCREMENT,
-  POOL_SYMBOL,
+  MIN_TOTAL_ASSET,
+  MIN_TOTAL_AMOUNT,
 } = process.env;
 
 module.exports.handler = handler;
@@ -31,7 +32,8 @@ async function handler(event, context) {
       MAX_SWAP_FEE,
       INTRA_EPOCH_LENGTH,
       SF_INCREMENT,
-      POOL_SYMBOL,
+      MIN_TOTAL_ASSET,
+      MIN_TOTAL_AMOUNT,
     },
   };
 

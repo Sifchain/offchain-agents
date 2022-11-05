@@ -8,7 +8,7 @@ async function adjustSwapFeeRate({ ports }) {
   // get current block height and max swap fee rate
   // get rowan_swap_fee from CLP params
   // get past intra_epoch_length blocks swap_successful events with swap_begin_token = rowan and height > current_height - intra_epoch_length
-  // if found events then stop
+  // if found events and total amount sold gth than min total amount then stop
   // if no events found reduce rowan_swap_fee by sf_increment and stop
 
   const { signingClient, account, queryClient } = await ports.getSigningClient(
@@ -16,10 +16,17 @@ async function adjustSwapFeeRate({ ports }) {
   );
 
   // get current_height
-  const { height: currentHeight } = await ports.getPool({
+  const {
+    height: currentHeight,
+    pool: { swapPriceNative: _swapPriceNative },
+  } = await ports.getPool({
     queryClient,
-    symbol: ports.env.POOL_SYMBOL,
+    symbol: ports.env.MIN_TOTAL_ASSET,
   });
+
+  const swapPriceNative = Number(
+    Decimal.fromAtomics(_swapPriceNative, 18).toString()
+  );
 
   // get max_swap_fee
   const maxSwapFee = Decimal.fromUserInput(ports.env.MAX_SWAP_FEE, 18);
@@ -32,6 +39,7 @@ async function adjustSwapFeeRate({ ports }) {
 
   const summary = {
     currentHeight,
+    swapPriceNative,
     maxSwapFee: maxSwapFee.toString(),
     defaultRate: defaultRate.toString(),
     rowanSwapFee: rowanSwapFee.toString(),
@@ -51,19 +59,25 @@ async function adjustSwapFeeRate({ ports }) {
 
   // get count_swap_txs
   const {
-    rows: [{ count_swap_txs }],
+    rows: [{ count_swap_txs, total_amount }],
   } = await ports.queryDB(
-    "select count(height) as count_swap_txs from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
+    "select count(height) as count_swap_txs, sum(swap_begin_amount) as total_amount from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
     [currentHeight - intraEpochLength, currentHeight]
   );
 
   const countSwapTxs = Number(count_swap_txs);
   summary.countSwapTxs = countSwapTxs;
+  const totalAmountInRowan = Number(total_amount);
+  summary.totalAmountInRowan = totalAmountInRowan;
+  const totalAmount = totalAmountInRowan * Number(swapPriceNative);
+  summary.totalAmount = totalAmount;
+  const minTotalAmount = Number(ports.env.MIN_TOTAL_AMOUNT);
+  summary.minTotalAmount = minTotalAmount;
   const foundSwaps = countSwapTxs > 0;
   summary.foundSwaps = foundSwaps;
 
   // if found events then skip
-  if (foundSwaps) {
+  if (foundSwaps && totalAmount >= minTotalAmount) {
     return summary;
   }
 

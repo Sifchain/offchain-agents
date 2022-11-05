@@ -57,7 +57,8 @@ margin-auto-close-positions:
 adjust-swap-fee-rate:
   intraEpochLength: 20
   sfIncrement: 0.01
-  poolSymbol: cusdc
+  minTotalAsset: cusdc
+  minTotalAmount: 6
   fee: 100000000000000000
   schedule: rate(2 minutes)
 reset-swap-fee-rate:

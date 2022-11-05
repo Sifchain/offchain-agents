@@ -27,7 +27,7 @@ test("no swaps, decrement rowan swap fee rate", async () => {
   });
   expect(ports.queryDB).toHaveBeenCalledTimes(1);
   expect(ports.queryDB).toHaveBeenCalledWith(
-    "select count(height) as count_swap_txs from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
+    "select count(height) as count_swap_txs, sum(swap_begin_amount) as total_amount from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
     [1200 - 300, 1200]
   );
   expect(ports.updateSwapFeeParams).toHaveBeenCalledTimes(1);
@@ -43,7 +43,9 @@ test("no swaps, decrement rowan swap fee rate", async () => {
 
 test("1 swap, dont update", async () => {
   const ports = setup({
-    queryDB: jest.fn(() => ({ rows: [{ count_swap_txs: "1" }] })),
+    queryDB: jest.fn(() => ({
+      rows: [{ count_swap_txs: "1", total_amount: "1000" }],
+    })),
   });
   await adjustSwapFeeRate({ ports });
   expect(ports.getPool).toHaveBeenCalledTimes(1);
@@ -57,10 +59,42 @@ test("1 swap, dont update", async () => {
   });
   expect(ports.queryDB).toHaveBeenCalledTimes(1);
   expect(ports.queryDB).toHaveBeenCalledWith(
-    "select count(height) as count_swap_txs from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
+    "select count(height) as count_swap_txs, sum(swap_begin_amount) as total_amount from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
     [1200 - 300, 1200]
   );
   expect(ports.updateSwapFeeParams).not.toHaveBeenCalled();
+});
+
+test("10 swaps but less than min total amonut, decrement rowan swap fee rate", async () => {
+  const ports = setup({
+    queryDB: jest.fn(() => ({
+      rows: [{ count_swap_txs: "10", total_amount: "221" }],
+    })),
+  });
+  await adjustSwapFeeRate({ ports });
+  expect(ports.getPool).toHaveBeenCalledTimes(1);
+  expect(ports.getPool).toHaveBeenCalledWith({
+    queryClient: "any-queryClient",
+    symbol: "cusdc",
+  });
+  expect(ports.getSwapFeeParams).toHaveBeenCalledTimes(1);
+  expect(ports.getSwapFeeParams).toHaveBeenCalledWith({
+    queryClient: "any-queryClient",
+  });
+  expect(ports.queryDB).toHaveBeenCalledTimes(1);
+  expect(ports.queryDB).toHaveBeenCalledWith(
+    "select count(height) as count_swap_txs, sum(swap_begin_amount) as total_amount from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
+    [1200 - 300, 1200]
+  );
+  expect(ports.updateSwapFeeParams).toHaveBeenCalledTimes(1);
+  expect(ports.updateSwapFeeParams).toHaveBeenCalledWith({
+    signingClient: "any-signingClient",
+    account: { address: "sif1234" },
+    defaultRate: Decimal.fromUserInput("0.03", 18),
+    tokenParams: {
+      rowan: Decimal.fromUserInput("0.79", 18),
+    },
+  });
 });
 
 test("no swaps and rowan swap fee rate < increment", async () => {
@@ -84,7 +118,7 @@ test("no swaps and rowan swap fee rate < increment", async () => {
   });
   expect(ports.queryDB).toHaveBeenCalledTimes(1);
   expect(ports.queryDB).toHaveBeenCalledWith(
-    "select count(height) as count_swap_txs from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
+    "select count(height) as count_swap_txs, sum(swap_begin_amount) as total_amount from events_audit where type='swap_successful' and swap_begin_token='rowan' and height>$1 and height<=$2",
     [1200 - 300, 1200]
   );
   expect(ports.updateSwapFeeParams).toHaveBeenCalledTimes(1);
@@ -93,7 +127,7 @@ test("no swaps and rowan swap fee rate < increment", async () => {
     account: { address: "sif1234" },
     defaultRate: Decimal.fromUserInput("0.03", 18),
     tokenParams: {
-      rowan: Decimal.zero(18),
+      rowan: Decimal.fromUserInput("0.03", 18),
     },
   });
 });
@@ -108,8 +142,13 @@ function setup(portsFromTests = {}) {
         },
         queryClient: "any-queryClient",
       })),
-      getPool: jest.fn(() => ({ height: 1200 })),
-      queryDB: jest.fn(() => ({ rows: [{ count_swap_txs: "0" }] })),
+      getPool: jest.fn(() => ({
+        height: 1200,
+        pool: { swapPriceNative: "0.0078" },
+      })),
+      queryDB: jest.fn(() => ({
+        rows: [{ count_swap_txs: "0", total_amount: "0" }],
+      })),
       getSwapFeeParams: jest.fn(() => ({
         defaultRate: Decimal.fromUserInput("0.03", 18),
         tokenParams: {
@@ -122,7 +161,8 @@ function setup(portsFromTests = {}) {
         MAX_SWAP_FEE: "0.5",
         INTRA_EPOCH_LENGTH: "300",
         SF_INCREMENT: "0.01",
-        POOL_SYMBOL: "cusdc",
+        MIN_TOTAL_ASSET: "cusdc",
+        MIN_TOTAL_AMOUNT: "6",
       },
     },
     portsFromTests

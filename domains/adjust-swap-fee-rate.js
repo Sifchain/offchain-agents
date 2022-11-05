@@ -18,11 +18,15 @@ async function adjustSwapFeeRate({ ports }) {
   // get current_height
   const {
     height: currentHeight,
-    pool: { swapPriceNative },
+    pool: { swapPriceNative: _swapPriceNative },
   } = await ports.getPool({
     queryClient,
     symbol: ports.env.MIN_TOTAL_ASSET,
   });
+
+  const swapPriceNative = Number(
+    Decimal.fromAtomics(_swapPriceNative, 18).toString()
+  );
 
   // get max_swap_fee
   const maxSwapFee = Decimal.fromUserInput(ports.env.MAX_SWAP_FEE, 18);
@@ -35,6 +39,7 @@ async function adjustSwapFeeRate({ ports }) {
 
   const summary = {
     currentHeight,
+    swapPriceNative,
     maxSwapFee: maxSwapFee.toString(),
     defaultRate: defaultRate.toString(),
     rowanSwapFee: rowanSwapFee.toString(),

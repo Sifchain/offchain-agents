@@ -129,7 +129,8 @@ functions:
       MAX_SWAP_FEE: ${self:custom.reset-swap-fee-rate.maxSwapFee}
       INTRA_EPOCH_LENGTH: ${self:custom.adjust-swap-fee-rate.intraEpochLength}
       SF_INCREMENT: ${self:custom.adjust-swap-fee-rate.sfIncrement}
-      POOL_SYMBOL: ${self:custom.adjust-swap-fee-rate.poolSymbol}
+      MIN_TOTAL_ASSET: ${self:custom.adjust-swap-fee-rate.minTotalAsset}
+      MIN_TOTAL_AMOUNT: ${self:custom.adjust-swap-fee-rate.minTotalAmount}
       FEE: ${self:custom.adjust-swap-fee-rate.fee}
     events:
       - schedule: ${self:custom.adjust-swap-fee-rate.schedule}

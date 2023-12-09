@@ -151,3 +151,15 @@ functions:
       FEE: ${self:custom.reset-swap-fee-rate.fee}
     events:
       - schedule: ${self:custom.reset-swap-fee-rate.schedule}
+  add-liquidity-to-rewards-bucket:
+    handler: ./functions/add-liquidity-to-rewards-bucket.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmAdminClpDexMnemonicPath}
+    environment:
+      ADMIN_CLP_DEX_MNEMONIC_PATH: ${self:custom.ssmAdminClpDexMnemonicPath}
+      AMOUNT: ${self:custom.add-liquidity-to-rewards-bucket.amount}
+    events:
+      - schedule: ${self:custom.add-liquidity-to-rewards-bucket.schedule}

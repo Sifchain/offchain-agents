@@ -65,6 +65,9 @@ reset-swap-fee-rate:
   maxSwapFee: 1.0
   fee: 100000000000000000
   schedule: rate(4 hours)
+add-liquidity-to-rewards-bucket:
+  amount: 3000000uusdc
+  schedule: rate(1 hour)
 tags:
   "sifchain::stage": ${opt:stage}
   "sifchain::owner": ${env:OWNER}

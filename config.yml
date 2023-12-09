@@ -1,9 +1,11 @@
 chainId: sifchain-1
 rpcProtocol: https
-rpcHostname: rpc.sifchain.finance
+# rpcHostname: rpc.sifchain.finance
+rpcHostname: sifchain-rpc.polkachu.com
 rpcPort: 443
 apiProtocol: https
-apiHostname: api.sifchain.finance
+# apiHostname: api.sifchain.finance
+apiHostname: sifchain-api.polkachu.com
 apiPort: 443
 
 # chainId: localnet

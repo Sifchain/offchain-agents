@@ -161,5 +161,6 @@ functions:
     environment:
       ADMIN_CLP_DEX_MNEMONIC_PATH: ${self:custom.ssmAdminClpDexMnemonicPath}
       AMOUNT: ${self:custom.add-liquidity-to-rewards-bucket.amount}
+      FEE: ${self:custom.add-liquidity-to-rewards-bucket.fee}
     events:
       - schedule: ${self:custom.add-liquidity-to-rewards-bucket.schedule}

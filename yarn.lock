@@ -1526,32 +1526,32 @@
     uuid "^8.3.2"
     write-file-atomic "^4.0.2"
 
-"@sifchain/math@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@sifchain/math/-/math-0.1.1.tgz#1f2f8e52c9edd48e5480dfc212e7e5271fa04509"
-  integrity sha512-Hku/IqEg9BW0MW7kKQ2HLOs3m1PacQcNgUSVpYfu5pIiohYdZws5ajVOVppWhmlzPzKlwbt8+QS8Bitrvre2Zg==
+"@sifchain/math@0.0.0-snapshot.1f650f6":
+  version "0.0.0-snapshot.1f650f6"
+  resolved "https://registry.yarnpkg.com/@sifchain/math/-/math-0.0.0-snapshot.1f650f6.tgz#4646691699b104c2f8419a78a5585ca4f1430ab1"
+  integrity sha512-bAUZBgXwK1S3SEkegmLlgNkCfS4um/LTHG7ITVpMnW28qIZjRcxT/n8uZ+jDyCqn6SiOOyfoskkg0HmhWdunSw==
   dependencies:
     bignumber.js "^9.1.0"
 
-"@sifchain/proto-types@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@sifchain/proto-types/-/proto-types-1.1.0.tgz#ec8043aa951bc4f8db40097fa11f08ce3e8ba7c1"
-  integrity sha512-LoWUpvegufOb43kht/bKAGIwFxz6dVxX6KQHOlwV9yV2CS1ddK+Lq1LZ0EdMiqDFI4L2uIGkO9RY04k4o3VJtA==
+"@sifchain/proto-types@0.0.0-snapshot.1f650f6":
+  version "0.0.0-snapshot.1f650f6"
+  resolved "https://registry.yarnpkg.com/@sifchain/proto-types/-/proto-types-0.0.0-snapshot.1f650f6.tgz#acd7be7700ab8057cce92fb4bd5e65fa0847648f"
+  integrity sha512-XkM9pwlJ2k/nPA1Gg8CPezQmTsW3Au0uGTs9jeBgFgiXsGdICLoHG9lwRWwTuj+DG4v5W5f7n+CBcMK4IhTwRA==
   dependencies:
     long "^5.2.0"
     protobufjs "^7.0.0"
 
-"@sifchain/stargate@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@sifchain/stargate/-/stargate-1.1.0.tgz#7bfb2b100c86c5664aff7eaad3c9ce54411278b4"
-  integrity sha512-eMUoVWbrVFutbJ64HQt39hTS2vixTZKSbzJ0lzq7Okwo0fQwSF9WRkiBvCXPjunOf28T1W44bqKjvxsK0Z3NMA==
+"@sifchain/stargate@1.2.0":
+  version "0.0.0-snapshot.1f650f6"
+  resolved "https://registry.yarnpkg.com/@sifchain/stargate/-/stargate-0.0.0-snapshot.1f650f6.tgz#237bfe1fe08c99496655fda3ff01c498a1741ef7"
+  integrity sha512-dGakT8XJVPnlNolWlZR0GQNM7tu5na0plHenMwCPgcLI7FoT4E4ahaW9hHfotMhnbehrXcIuIjker1+vnvEagQ==
   dependencies:
     "@cosmjs/math" "^0.29.1"
     "@cosmjs/proto-signing" "^0.29.1"
     "@cosmjs/stargate" "^0.29.1"
     "@cosmjs/tendermint-rpc" "^0.29.0"
-    "@sifchain/math" "0.1.1"
-    "@sifchain/proto-types" "1.1.0"
+    "@sifchain/math" "0.0.0-snapshot.1f650f6"
+    "@sifchain/proto-types" "0.0.0-snapshot.1f650f6"
     bignumber.js "^9.1.0"
     cosmjs-types "^0.5.0"
     inflection "^1.13.2"

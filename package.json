@@ -18,7 +18,7 @@
     "@cosmjs/proto-signing": "^0.29.0",
     "@cosmjs/stargate": "^0.29.0",
     "@cosmjs/tendermint-rpc": "^0.29.0",
-    "@sifchain/stargate": "1.1.0",
+    "@sifchain/stargate": "0.0.0-snapshot.1f650f6",
     "node-fetch": "^3.2.10",
     "pg": "^8.8.0"
   },

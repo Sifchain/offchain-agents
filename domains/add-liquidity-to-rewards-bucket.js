@@ -12,8 +12,11 @@ async function addLiquidityToRewardsBucket({ ports }) {
   // get amount
   const amount = parseCoins(ports.env.AMOUNT);
 
+  // convert amount to string
+  const amountStr = amount.map((coin) => `${coin.amount}${coin.denom}`).join(", ");
+
   const summary = {
-    amount: amount.toString(),
+    amount: amountStr
   };
 
   await ports.addLiquidityToRewardsBucket({

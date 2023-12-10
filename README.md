@@ -83,3 +83,13 @@ The agent can be tested locally using the following command:
 ```bash
 yarn sls:invoke:local reset-swap-fee-rate
 ```
+
+## Add Liquidity to Rewards Bucket
+
+This agent is scheduled to run every hour. It adds liquidity to the rewards bucket.
+
+The agent can be tested locally using the following command:
+
+```bash
+yarn sls:invoke:local add-liquidity-to-rewards-bucket
+```

@@ -4,11 +4,12 @@ const { getSigningClient } = require("../helpers/getSigningClient");
 const { addLiquidityToRewardsBucket: addLiquidityToRewardsBucketDomain } = require("../domains/add-liquidity-to-rewards-bucket");
 const { addLiquidityToRewardsBucket } = require("../helpers/addLiquidityToRewardsBucket");
 const { createSlackMessage } = require("../helpers/createSlackMessage");
+const { getUserBalances } = require("../helpers/getUserBalances");
 
 const {
   SLACK_OFFCHAIN_CHANNEL_WEBHOOK,
   ADMIN_CLP_DEX_MNEMONIC_PATH,
-  AMOUNT,
+  END_DATE,
 } = process.env;
 
 module.exports.handler = handler;
@@ -16,10 +17,11 @@ module.exports.handler = handler;
 async function handler(event, context) {
   const ports = {
     getSigningClient,
+    getUserBalances,
     addLiquidityToRewardsBucket,
     env: {
       ADMIN_CLP_DEX_MNEMONIC_PATH,
-      AMOUNT,
+      END_DATE,
     },
   };
 

@@ -160,7 +160,7 @@ functions:
         Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmAdminClpDexMnemonicPath}
     environment:
       ADMIN_CLP_DEX_MNEMONIC_PATH: ${self:custom.ssmAdminClpDexMnemonicPath}
-      AMOUNT: ${self:custom.add-liquidity-to-rewards-bucket.amount}
+      END_DATE: ${self:custom.add-liquidity-to-rewards-bucket.endDate}
       FEE: ${self:custom.add-liquidity-to-rewards-bucket.fee}
     events:
       - schedule: ${self:custom.add-liquidity-to-rewards-bucket.schedule}

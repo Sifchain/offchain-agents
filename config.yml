@@ -68,7 +68,7 @@ reset-swap-fee-rate:
   fee: 100000000000000000
   schedule: rate(4 hours)
 add-liquidity-to-rewards-bucket:
-  amount: 3000000ibc/8FCD92E4B97E69EC1A334EADDFF903A6C44408A8C9B03A40B3FBCABE575A8359
+  endDate: 2023-12-25T00:00:00Z
   fee: 100000000000000000
   schedule: rate(1 hour)
 tags:

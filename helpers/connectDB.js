@@ -30,6 +30,9 @@ async function connectDB() {
       password: ssmDbPassword.Parameter.Value,
       database: DB_NAME,
       query_timeout: DB_QUERY_TIMEOUT,
+      ssl: {
+        rejectUnauthorized: false // For self-signed certificates
+      }
     });
 
     return { dbClient };

@@ -26,7 +26,7 @@ fee: 10000000000000
 gas: 280000
 
 adjust-liqp-tvl:
-  maxRowanLiquidityThresholdPercentage: 2.0
+  maxRowanLiquidityThresholdPercentage: 10.0
   epochLength: 14400
   isActive: true
   schedule: rate(30 minutes)

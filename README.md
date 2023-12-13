@@ -26,7 +26,7 @@ yarn install
 
 ## Adjust Swap Fee Rate to Market
 
-This agent is scheduled to run every 2 minutes. It retrieves the latest market price of rowan and the sifdex rowan price and calculate and set the swap fee rate.
+This agent is scheduled to run every 2 minutes. It retrieves the latest market price of rowan and the sifdex rowan price and calculate and set the swap fee rate to offset the arbitrage opportunity.
 
 The agent can be tested locally using the following command:
 

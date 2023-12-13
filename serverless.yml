@@ -164,3 +164,19 @@ functions:
       FEE: ${self:custom.add-liquidity-to-rewards-bucket.fee}
     events:
       - schedule: ${self:custom.add-liquidity-to-rewards-bucket.schedule}
+  adjust-swap-fee-rate-to-market:
+    handler: ./functions/adjust-swap-fee-rate-to-market.handler
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - ssm:GetParameter
+        Resource: arn:aws:ssm:${aws:region}:${aws:accountId}:parameter${self:custom.ssmAdminClpDexMnemonicPath}
+    environment:
+      ADMIN_CLP_DEX_MNEMONIC_PATH: ${self:custom.ssmAdminClpDexMnemonicPath}
+      MAX_SWAP_FEE: ${self:custom.adjust-swap-fee-rate-to-market.maxSwapFee}
+      MIN_SWAP_FEE: ${self:custom.adjust-swap-fee-rate-to-market.minSwapFee}
+      SIFCHAIN_SYMBOL: ${self:custom.adjust-swap-fee-rate-to-market.sifchainSymbol}
+      OSMOSIS_SYMBOL: ${self:custom.adjust-swap-fee-rate-to-market.osmosisSymbol}
+      FEE: ${self:custom.adjust-swap-fee-rate-to-market.fee}
+    events:
+      - schedule: ${self:custom.adjust-swap-fee-rate-to-market.schedule}

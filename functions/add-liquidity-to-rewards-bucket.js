@@ -1,8 +1,12 @@
 const fetch = require("node-fetch").default;
 
 const { getSigningClient } = require("../helpers/getSigningClient");
-const { addLiquidityToRewardsBucket: addLiquidityToRewardsBucketDomain } = require("../domains/add-liquidity-to-rewards-bucket");
-const { addLiquidityToRewardsBucket } = require("../helpers/addLiquidityToRewardsBucket");
+const {
+  addLiquidityToRewardsBucket: addLiquidityToRewardsBucketDomain,
+} = require("../domains/add-liquidity-to-rewards-bucket");
+const {
+  addLiquidityToRewardsBucket,
+} = require("../helpers/addLiquidityToRewardsBucket");
 const { createSlackMessage } = require("../helpers/createSlackMessage");
 const { getUserBalances } = require("../helpers/getUserBalances");
 

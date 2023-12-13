@@ -74,7 +74,8 @@ add-liquidity-to-rewards-bucket:
 adjust-swap-fee-rate-to-market:
   maxSwapFee: 1.0 # 100%
   minSwapFee: 0.005 # 0.5%
-  sifchainSymbol: ibc/8FCD92E4B97E69EC1A334EADDFF903A6C44408A8C9B03A40B3FBCABE575A8359
+  # sifchainSymbol: ibc/8FCD92E4B97E69EC1A334EADDFF903A6C44408A8C9B03A40B3FBCABE575A8359
+  sifchainSymbol: cusdc # using cusdc as bigger gap between market and cusdc pool
   osmosisSymbol: ROWAN
   fee: 100000000000000000
   schedule: rate(2 minutes)

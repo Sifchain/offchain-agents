@@ -24,6 +24,16 @@ yarn install
 
 # Available Agents
 
+## Adjust Swap Fee Rate to Market
+
+This agent is scheduled to run every 2 minutes. It retrieves the latest market price of rowan and the sifdex rowan price and calculate and set the swap fee rate.
+
+The agent can be tested locally using the following command:
+
+```bash
+yarn sls:invoke:local adjust-swap-fee-rate-to-market
+```
+
 ## Adjust Liquidity Protection to TVL
 
 This agent is scheduled to run every 30 minutes. It retrieves the latest total TVL from the pool balances and set the update the liquidity protection max treshold value to be set to 2% of the latest TVL value.

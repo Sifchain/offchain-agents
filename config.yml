@@ -68,7 +68,6 @@ reset-swap-fee-rate:
   fee: 100000000000000000
   schedule: rate(4 hours)
 add-liquidity-to-rewards-bucket:
-  endDate: 2023-12-25T00:00:00Z
   fee: 100000000000000000
   schedule: rate(1 hour)
 adjust-swap-fee-rate-to-market:

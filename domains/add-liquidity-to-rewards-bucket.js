@@ -2,9 +2,10 @@ const BigNumber = require("bignumber.js");
 
 module.exports.addLiquidityToRewardsBucket = addLiquidityToRewardsBucket;
 
-async function addLiquidityToRewardsBucket({ ports }) {
-  let endDate = ports.env.END_DATE;
+const hoursInTwoWeekPeriod = 14 * 24;
+const identifier = "hour";
 
+async function addLiquidityToRewardsBucket({ ports }) {
   // keep adding new liquidity to rewards bucket every hour
 
   const { signingClient, account, queryClient } = await ports.getSigningClient(
@@ -12,6 +13,20 @@ async function addLiquidityToRewardsBucket({ ports }) {
   );
 
   const summary = {};
+
+  // get epoch infos
+  const currentEpoch = await ports.getCurrentEpoch({
+    queryClient,
+    identifier,
+  });
+
+  // check that currentEpoch is not null
+  const hasCurrentEpoch = currentEpoch !== null;
+  summary.hasCurrentEpoch = hasCurrentEpoch;
+
+  if (!hasCurrentEpoch) {
+    return summary;
+  }
 
   // get wallet balances
   const { balances } = await ports.getUserBalances({ queryClient, account });
@@ -26,13 +41,9 @@ async function addLiquidityToRewardsBucket({ ports }) {
     return summary;
   }
 
-  // convert endDate to Date
-  endDate = new Date(endDate);
-
-  // calculate the number of hours left unit endDate
-  let hoursLeft = (endDate - Date.now()) / 1000 / 60 / 60;
-  // convert hoursLeft to int
-  hoursLeft = parseInt(hoursLeft);
+  // calculate the number of hours left until end of 2-week period
+  const hoursLeft =
+    hoursInTwoWeekPeriod - (currentEpoch % hoursInTwoWeekPeriod);
   summary.hoursLeft = hoursLeft;
 
   // hoursLeft must be positive
@@ -41,16 +52,22 @@ async function addLiquidityToRewardsBucket({ ports }) {
   }
 
   // get the amount of liquidity to add to rewards bucket
-  const amount = filteredBalances.map(({ denom, amount }) => ({
-    denom,
-    amount: BigNumber(amount).dividedBy(hoursLeft).toFixed(0),
-  }));
+  const amount = filteredBalances
+    .map(({ denom, amount }) => ({
+      denom,
+      amount: BigNumber(amount).dividedBy(hoursLeft).toFixed(0),
+    }))
+    .filter(({ amount }) => amount > 0);
 
+  // convert balance to string
+  const balanceStr = filteredBalances
+    .map((coin) => `${coin.amount}${coin.denom}`)
+    .join(", ");
+  summary.balance = balanceStr;
   // convert amount to string
   const amountStr = amount
     .map((coin) => `${coin.amount}${coin.denom}`)
     .join(", ");
-
   summary.amount = amountStr;
 
   await ports.addLiquidityToRewardsBucket({

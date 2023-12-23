@@ -9,12 +9,10 @@ const {
 } = require("../helpers/addLiquidityToRewardsBucket");
 const { createSlackMessage } = require("../helpers/createSlackMessage");
 const { getUserBalances } = require("../helpers/getUserBalances");
+const { getCurrentEpoch } = require("../helpers/getCurrentEpoch");
 
-const {
-  SLACK_OFFCHAIN_CHANNEL_WEBHOOK,
-  ADMIN_CLP_DEX_MNEMONIC_PATH,
-  END_DATE,
-} = process.env;
+const { SLACK_OFFCHAIN_CHANNEL_WEBHOOK, ADMIN_CLP_DEX_MNEMONIC_PATH } =
+  process.env;
 
 module.exports.handler = handler;
 
@@ -22,10 +20,10 @@ async function handler(event, context) {
   const ports = {
     getSigningClient,
     getUserBalances,
+    getCurrentEpoch,
     addLiquidityToRewardsBucket,
     env: {
       ADMIN_CLP_DEX_MNEMONIC_PATH,
-      END_DATE,
     },
   };
 

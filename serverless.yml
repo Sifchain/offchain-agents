@@ -176,6 +176,7 @@ functions:
       MIN_SWAP_FEE: ${self:custom.adjust-swap-fee-rate-to-market.minSwapFee}
       SIFCHAIN_SYMBOL: ${self:custom.adjust-swap-fee-rate-to-market.sifchainSymbol}
       OSMOSIS_SYMBOL: ${self:custom.adjust-swap-fee-rate-to-market.osmosisSymbol}
+      REDUCER_COEFFICIENT: ${self:custom.adjust-swap-fee-rate-to-market.reducerCoefficient}
       FEE: ${self:custom.adjust-swap-fee-rate-to-market.fee}
     events:
       - schedule: ${self:custom.adjust-swap-fee-rate-to-market.schedule}

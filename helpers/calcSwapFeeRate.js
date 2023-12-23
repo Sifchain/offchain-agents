@@ -4,20 +4,23 @@ function calcSwapFeeRate(
   priceOsmosis,
   priceSifchain,
   minSwapFeeRate,
-  maxSwapFeeRate
+  maxSwapFeeRate,
+  reducerCoefficient
 ) {
   // make sure all inputs are of type Number
   priceOsmosis = Number(priceOsmosis);
   priceSifchain = Number(priceSifchain);
   minSwapFeeRate = Number(minSwapFeeRate);
   maxSwapFeeRate = Number(maxSwapFeeRate);
+  reducerCoefficient = Number(reducerCoefficient);
 
   // check that none of the inputs are NaN
   if (
     isNaN(priceOsmosis) ||
     isNaN(priceSifchain) ||
     isNaN(minSwapFeeRate) ||
-    isNaN(maxSwapFeeRate)
+    isNaN(maxSwapFeeRate) ||
+    isNaN(reducerCoefficient)
   ) {
     throw new Error("All inputs must be of type Number");
   }
@@ -44,6 +47,11 @@ function calcSwapFeeRate(
     );
   }
 
+  // reducer coefficient should be between 0 and 1
+  if (reducerCoefficient < 0 || reducerCoefficient > 1) {
+    throw new Error("Reducer coefficient should be between 0 and 1");
+  }
+
   // Calculate the price difference (Delta P)
   let deltaPrice = priceSifchain - priceOsmosis;
 
@@ -52,6 +60,9 @@ function calcSwapFeeRate(
     Math.max(deltaPrice / priceOsmosis, minSwapFeeRate),
     maxSwapFeeRate
   );
+
+  // Apply reducer coefficient
+  swapFeeRate = swapFeeRate * reducerCoefficient;
 
   return swapFeeRate;
 }

@@ -1526,32 +1526,32 @@
     uuid "^8.3.2"
     write-file-atomic "^4.0.2"
 
-"@sifchain/math@0.0.0-snapshot.1f650f6":
-  version "0.0.0-snapshot.1f650f6"
-  resolved "https://registry.yarnpkg.com/@sifchain/math/-/math-0.0.0-snapshot.1f650f6.tgz#4646691699b104c2f8419a78a5585ca4f1430ab1"
-  integrity sha512-bAUZBgXwK1S3SEkegmLlgNkCfS4um/LTHG7ITVpMnW28qIZjRcxT/n8uZ+jDyCqn6SiOOyfoskkg0HmhWdunSw==
+"@sifchain/math@0.0.0-snapshot.d511c89":
+  version "0.0.0-snapshot.d511c89"
+  resolved "https://registry.yarnpkg.com/@sifchain/math/-/math-0.0.0-snapshot.d511c89.tgz#6919845629303feab81f09672f82ae12f7a46960"
+  integrity sha512-BHgI2QO0bC7WMMh484trYIXJL+8t4ZhPvRyEZ/0MzhxjJrFPE1Z50OywtC6LtaNKf7zDMr++gVz6o0RLDNdThg==
   dependencies:
     bignumber.js "^9.1.0"
 
-"@sifchain/proto-types@0.0.0-snapshot.1f650f6":
-  version "0.0.0-snapshot.1f650f6"
-  resolved "https://registry.yarnpkg.com/@sifchain/proto-types/-/proto-types-0.0.0-snapshot.1f650f6.tgz#acd7be7700ab8057cce92fb4bd5e65fa0847648f"
-  integrity sha512-XkM9pwlJ2k/nPA1Gg8CPezQmTsW3Au0uGTs9jeBgFgiXsGdICLoHG9lwRWwTuj+DG4v5W5f7n+CBcMK4IhTwRA==
+"@sifchain/proto-types@0.0.0-snapshot.d511c89":
+  version "0.0.0-snapshot.d511c89"
+  resolved "https://registry.yarnpkg.com/@sifchain/proto-types/-/proto-types-0.0.0-snapshot.d511c89.tgz#d2a6a7280dd55517f4fcfed4b3ca09210bb9bf90"
+  integrity sha512-fmcKD/phOwqPAPGEzbJBOdnEpMCYoT/X100pOwNOaUUsWjDa2wkgd7WLyt5X+9I2AGTtcqV29ijmqd5V31jCGA==
   dependencies:
     long "^5.2.0"
     protobufjs "^7.0.0"
 
-"@sifchain/stargate@1.2.0":
-  version "0.0.0-snapshot.1f650f6"
-  resolved "https://registry.yarnpkg.com/@sifchain/stargate/-/stargate-0.0.0-snapshot.1f650f6.tgz#237bfe1fe08c99496655fda3ff01c498a1741ef7"
-  integrity sha512-dGakT8XJVPnlNolWlZR0GQNM7tu5na0plHenMwCPgcLI7FoT4E4ahaW9hHfotMhnbehrXcIuIjker1+vnvEagQ==
+"@sifchain/stargate@0.0.0-snapshot.d511c89":
+  version "0.0.0-snapshot.d511c89"
+  resolved "https://registry.yarnpkg.com/@sifchain/stargate/-/stargate-0.0.0-snapshot.d511c89.tgz#86be598f9a766b5744730888d1e4bead2f658808"
+  integrity sha512-EBT7eSgBP8EuV9VMo7jmdLwYx5Moio+Uut7MzfCo9J4CSEZAJUXh38o43tC1RU+8Y4vfJxOF9MhbjLsi8MG9hA==
   dependencies:
     "@cosmjs/math" "^0.29.1"
     "@cosmjs/proto-signing" "^0.29.1"
     "@cosmjs/stargate" "^0.29.1"
     "@cosmjs/tendermint-rpc" "^0.29.0"
-    "@sifchain/math" "0.0.0-snapshot.1f650f6"
-    "@sifchain/proto-types" "0.0.0-snapshot.1f650f6"
+    "@sifchain/math" "0.0.0-snapshot.d511c89"
+    "@sifchain/proto-types" "0.0.0-snapshot.d511c89"
     bignumber.js "^9.1.0"
     cosmjs-types "^0.5.0"
     inflection "^1.13.2"

@@ -18,6 +18,7 @@ const {
   MIN_SWAP_FEE,
   SIFCHAIN_SYMBOL,
   OSMOSIS_SYMBOL,
+  REDUCER_COEFFICIENT,
 } = process.env;
 
 module.exports.handler = handler;
@@ -36,6 +37,7 @@ async function handler(event, context) {
       MIN_SWAP_FEE,
       SIFCHAIN_SYMBOL,
       OSMOSIS_SYMBOL,
+      REDUCER_COEFFICIENT,
     },
   };
 

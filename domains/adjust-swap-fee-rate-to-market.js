@@ -28,6 +28,9 @@ async function adjustSwapFeeRateToMarket({ ports }) {
   // get min_swap_fee
   const minSwapFee = ports.env.MIN_SWAP_FEE;
 
+  // get reducer coefficient
+  const reducerCoefficient = ports.env.REDUCER_COEFFICIENT;
+
   // get swap fee params
   const { defaultRate, tokenParams } = await ports.getSwapFeeParams({
     queryClient,
@@ -40,6 +43,7 @@ async function adjustSwapFeeRateToMarket({ ports }) {
     osmosisPrice,
     maxSwapFee: maxSwapFee,
     minSwapFee: minSwapFee,
+    reducerCoefficient: reducerCoefficient,
     defaultRate: defaultRate.toString(),
     currentRowanSwapFee: rowanSwapFee.toString(),
   };
@@ -49,7 +53,8 @@ async function adjustSwapFeeRateToMarket({ ports }) {
     osmosisPrice,
     sifchainPrice,
     minSwapFee,
-    maxSwapFee
+    maxSwapFee,
+    reducerCoefficient
   );
 
   newRowanSwapFee = Decimal.fromUserInput(newRowanSwapFee.toString(), 18);

@@ -75,6 +75,7 @@ adjust-swap-fee-rate-to-market:
   minSwapFee: 0.005 # 0.5%
   sifchainSymbol: ibc/8FCD92E4B97E69EC1A334EADDFF903A6C44408A8C9B03A40B3FBCABE575A8359
   osmosisSymbol: ROWAN
+  reducerCoefficient: 0.9 # will apply 90% of the actual calculated swap fee rate
   fee: 100000000000000000
   schedule: rate(2 minutes)
 tags:

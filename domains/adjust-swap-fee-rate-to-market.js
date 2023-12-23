@@ -64,13 +64,13 @@ async function adjustSwapFeeRateToMarket({ ports }) {
   updated = newRowanSwapFee.toString() !== rowanSwapFee.toString();
   summary.updated = updated;
 
-  // if (updated) {
-  //   await ports.updateSwapFeeParams({
-  //     signingClient,
-  //     account,
-  //     defaultRate,
-  //     tokenParams,
-  //   });
-  // }
+  if (updated) {
+    await ports.updateSwapFeeParams({
+      signingClient,
+      account,
+      defaultRate,
+      tokenParams,
+    });
+  }
   return summary;
 }

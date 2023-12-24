@@ -28,12 +28,8 @@ provider:
   logRetentionInDays: 7 # this should be defined in the AWS Organization, manually adding it for now
   environment:
     CHAIN_ID: ${self:custom.chainId}
-    RPC_PROTOCOL: ${self:custom.rpcProtocol}
-    RPC_HOSTNAME: ${self:custom.rpcHostname}
-    RPC_PORT: ${self:custom.rpcPort}
-    API_PROTOCOL: ${self:custom.apiProtocol}
-    API_HOSTNAME: ${self:custom.apiHostname}
-    API_PORT: ${self:custom.apiPort}
+    RPC_ENDPOINT: ${self:custom.rpcEndpoint}
+    API_ENDPOINT: ${self:custom.apiEndpoint}
     SLACK_OFFCHAIN_CHANNEL_WEBHOOK: ${self:custom.slackOffchainAgentsWebhook}
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
     FEE: ${self:custom.fee}

@@ -2,7 +2,7 @@ const { SSMClient, GetParameterCommand } = require("@aws-sdk/client-ssm");
 const { DirectSecp256k1HdWallet } = require("@cosmjs/proto-signing");
 const { SifSigningStargateClient } = require("@sifchain/stargate");
 
-const { RPC_PROTOCOL, RPC_HOSTNAME, RPC_PORT, AWS_REGION } = process.env;
+const { RPC_ENDPOINT, AWS_REGION } = process.env;
 
 module.exports.getSigningClient = async (mnemonicPath) => {
   const ssm = new SSMClient({ region: AWS_REGION });
@@ -22,7 +22,7 @@ module.exports.getSigningClient = async (mnemonicPath) => {
 
   const [account] = await wallet.getAccounts();
 
-  const node = `${RPC_PROTOCOL}://${RPC_HOSTNAME}:${RPC_PORT}`;
+  const node = `${RPC_ENDPOINT}`;
 
   const signingClient = await SifSigningStargateClient.connectWithSigner(
     node,

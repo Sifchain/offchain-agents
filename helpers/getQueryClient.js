@@ -1,11 +1,11 @@
 const { createQueryClient } = require("@sifchain/stargate");
 
-const { RPC_PROTOCOL, RPC_HOSTNAME, RPC_PORT } = process.env;
+const { RPC_ENDPOINT } = process.env;
 
 module.exports.getQueryClient = getQueryClient;
 
 async function getQueryClient() {
-  const node = `${RPC_PROTOCOL}://${RPC_HOSTNAME}:${RPC_PORT}`;
+  const node = `${RPC_ENDPOINT}`;
 
   const queryClient = await createQueryClient(node);
 

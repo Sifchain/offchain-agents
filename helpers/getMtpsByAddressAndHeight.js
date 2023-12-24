@@ -1,11 +1,11 @@
 const fetch = require("node-fetch").default;
 
-const { API_PROTOCOL, API_HOSTNAME, API_PORT } = process.env;
+const { API_ENDPOINT } = process.env;
 
 module.exports.getMtpsByAddressAndHeight = getMtpsByAddressAndHeight;
 
 async function getMtpsByAddressAndHeight({ address, height }) {
-  const api = `${API_PROTOCOL}://${API_HOSTNAME}:${API_PORT}`;
+  const api = `${API_ENDPOINT}`;
 
   const { height: _height, result } = await (
     await fetch(

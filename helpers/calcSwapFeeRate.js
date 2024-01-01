@@ -57,7 +57,7 @@ function calcSwapFeeRate(
 
   // Determine swap fee rate based on the maximum of price difference and minimum fee, capped at maximum swap fee rate
   let swapFeeRate = Math.min(
-    Math.max(deltaPrice / priceOsmosis, minSwapFeeRate),
+    Math.max(deltaPrice / priceSifchain, minSwapFeeRate),
     maxSwapFeeRate
   );
 

@@ -16,7 +16,7 @@ describe("calcSwapFeeRate function", () => {
       reducerCoefficient
     );
 
-    expect(swapFeeRate).toBeCloseTo(1);
+    expect(swapFeeRate).toBeCloseTo(0.86);
   });
 
   test("calculates swap fee rate for an extreme scenario with reducer coeficient", () => {
@@ -34,7 +34,7 @@ describe("calcSwapFeeRate function", () => {
       reducerCoefficient
     );
 
-    expect(swapFeeRate).toBeCloseTo(0.9);
+    expect(swapFeeRate).toBeCloseTo(0.77);
   });
 
   test("calculates swap fee rate for an extreme scenario capped at max swap fee rate", () => {
@@ -70,7 +70,7 @@ describe("calcSwapFeeRate function", () => {
       reducerCoefficient
     );
 
-    expect(swapFeeRate).toBeCloseTo(0.2857142857142857);
+    expect(swapFeeRate).toBeCloseTo(0.22);
   });
 
   test("calculates swap fee rate for a minimum fee scenario", () => {
